@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fix Medicare Now</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -385,6 +386,16 @@
 
 <script>
   var CIVIC_KEY  = 'AIzaSyCEOLG1xySWcdWJhhavCwcF2uZt68it2ZY';
+
+  // ── EMAILJS CONFIG (filled in after setup) ───────────────────
+  var EJS_PUBLIC_KEY  = 'tfqqUeFE3SoT2jS9j';
+  var EJS_SERVICE_ID  = 'fixmedicare';
+  var EJS_TEMPLATE_ID = 'template_gwlzg4n';
+
+  // Initialize EmailJS
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init({ publicKey: EJS_PUBLIC_KEY });
+  }
   var SHEET_URL  = 'https://script.google.com/macros/s/AKfycbzMqN7Jn9ewBNCR3w-kThusynyCuCNj6JgCVguo8hQmk7sK4vx7HKufJ7CkBuMm6uqq/exec';
   var signatures = [];
 
@@ -430,12 +441,13 @@
         if (reps[i].role.toLowerCase().indexOf('senator') > -1) senators.push(reps[i].name);
       }
 
+      var senStr = senators.join(', ');
       var sig = {
         fname: fname, lname: lname, fullName: fname + ' ' + lname,
         displayName: fname + ' ' + lname.charAt(0) + '.',
         email: email, city: city, state: state, zip: zip,
         address: fullAddress, issues: issues, statement: statement,
-        reps: reps, houseRep: houseRep, senators: senators.join(', '),
+        reps: reps, houseRep: houseRep, senators: senStr,
         date: new Date().toLocaleDateString()
       };
 
@@ -443,6 +455,11 @@
       saveSignature(sig);
       saveLocal();
       updateCounts();
+
+      // Send admin notification email with rep info
+      var hRep = sig.houseRep || '';
+      var sens = sig.senators  || '';
+      sendNotificationEmail(sig, hRep, sens);
       renderTable();
       showSuccess();
       showReps(reps, sig);
@@ -508,6 +525,33 @@
     xhr.ontimeout = function() { callback([]); };
     xhr.onerror   = function() { callback([]); };
     xhr.send();
+  }
+
+  // ── SEND EMAIL NOTIFICATION VIA EMAILJS ─────────────────────
+  function sendNotificationEmail(sig, houseRep, senators) {
+    if (typeof emailjs === 'undefined') return;
+    if (EJS_PUBLIC_KEY === 'PASTE_YOUR_PUBLIC_KEY_HERE') return;
+
+    var repNames = [];
+    if (houseRep) repNames.push(houseRep);
+    if (senators) repNames.push(senators);
+
+    emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, {
+      signer_name:    sig.fullName,
+      signer_email:   sig.email,
+      signer_address: sig.address,
+      signer_city:    sig.city,
+      signer_state:   sig.state,
+      signer_zip:     sig.zip,
+      house_rep:      houseRep  || 'Not found',
+      senators:       senators  || 'Not found',
+      statement:      sig.statement || 'None provided',
+      date:           new Date().toLocaleString()
+    }).then(function() {
+      console.log('Notification email sent successfully');
+    }).catch(function(err) {
+      console.warn('Email notification failed:', err);
+    });
   }
 
   // ── SAVE SIGNATURE TO GOOGLE SHEET ───────────────────────────
