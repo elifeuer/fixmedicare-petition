@@ -21,9 +21,11 @@
   nav { background: var(--navy); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; border-bottom: 3px solid var(--gold); }
   .nav-logo { font-family: 'Playfair Display', serif; color: white; font-size: 1.2rem; font-weight: 700; }
   .nav-logo span { color: var(--gold); }
-  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
   .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; }
   .nav-links a:hover { color: var(--gold); }
+  .nav-contact-btn { background: var(--gold); color: var(--navy) !important; padding: 0.35rem 1rem; border-radius: 2px; font-weight: 700 !important; transition: background 0.2s; }
+  .nav-contact-btn:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
 
   /* HERO */
   .hero { background: var(--navy); color: white; padding: 5rem 2rem 4rem; text-align: center; }
@@ -31,7 +33,11 @@
   .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; max-width: 780px; margin: 0 auto 1.25rem; }
   .hero h1 em { color: var(--gold); font-style: italic; }
   .hero-sub { font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.8); max-width: 560px; margin: 0 auto 2rem; font-style: italic; }
+  .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0; }
   .hero-cta { display: inline-block; background: var(--gold); color: var(--navy); padding: 0.8rem 2.25rem; border-radius: 3px; text-decoration: none; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; }
+  .hero-cta:hover { background: var(--gold-light); }
+  .hero-cta-outline { display: inline-block; background: transparent; color: white; padding: 0.8rem 2.25rem; border-radius: 3px; text-decoration: none; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; border: 2px solid var(--gold); transition: background 0.2s; }
+  .hero-cta-outline:hover { background: rgba(200,146,42,0.15); }
   .hero-stats { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.15); }
   .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--gold); display: block; }
   .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.55); letter-spacing: 0.05em; text-transform: uppercase; }
@@ -42,6 +48,12 @@
   .section-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 0.6rem; }
   .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3.5vw, 2.6rem); font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; line-height: 1.2; }
   .section-intro { font-size: 1rem; color: var(--text-mid); max-width: 660px; margin-bottom: 2.5rem; font-style: italic; font-weight: 300; }
+
+  /* CONTACT CONGRESS BANNER */
+  .congress-banner { background: var(--gold); padding: 1.25rem 2rem; text-align: center; }
+  .congress-banner p { font-size: 0.95rem; color: var(--navy); margin-bottom: 0.75rem; font-weight: 600; }
+  .congress-banner a { display: inline-block; background: var(--navy); color: white; padding: 0.65rem 2rem; border-radius: 3px; text-decoration: none; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.95rem; transition: background 0.2s; }
+  .congress-banner a:hover { background: #1a3a5c; }
 
   /* ISSUES */
   .issues-bg { background: white; }
@@ -71,11 +83,7 @@
   .form-input:focus { border-color: var(--navy); background: white; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
   textarea.form-input { resize: vertical; min-height: 80px; }
-
-  /* STATE SELECT - native but styled */
   select.form-input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%234a4a4a' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.85rem center; background-size: 10px; padding-right: 2.5rem; cursor: pointer; }
-
-
 
   /* SUBMIT */
   .submit-btn { width: 100%; padding: 0.9rem; background: var(--navy); color: white; border: none; border-radius: 3px; font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 0.75rem; transition: background 0.2s; }
@@ -140,8 +148,8 @@
   @media (max-width: 720px) {
     .form-layout, .digest-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
-    .issues-grid-btns { grid-template-columns: 1fr; }
     .nav-links { display: none; }
+    .hero-buttons { flex-direction: column; align-items: center; }
   }
 </style>
 </head>
@@ -154,6 +162,7 @@
     <a href="javascript:void(0)" onclick="goToSection('sign')">Sign</a>
     <a href="javascript:void(0)" onclick="goToSection('signatures')">Signatories</a>
     <a href="javascript:void(0)" onclick="goToSection('digest')">Weekly Digest</a>
+    <a href="contact-congress.html" class="nav-contact-btn">Contact Congress</a>
   </div>
 </nav>
 
@@ -161,12 +170,21 @@
   <div class="hero-badge">A National Petition for Reform</div>
   <h1>Our Seniors Deserve <em>Better.</em><br>Congress Must Act Now.</h1>
   <p class="hero-sub">Medicare and Social Security are failing millions of Americans. It is time to demand the reforms our seniors have earned.</p>
-  <a href="javascript:void(0)" onclick="goToSection('sign')" class="hero-cta">Add My Voice</a>
+  <div class="hero-buttons">
+    <a href="javascript:void(0)" onclick="goToSection('sign')" class="hero-cta">Add My Voice</a>
+    <a href="contact-congress.html" class="hero-cta-outline">Contact Congress Directly</a>
+  </div>
   <div class="hero-stats">
     <div><span class="stat-num" id="hero-count">0</span><span class="stat-label">Signatories</span></div>
     <div><span class="stat-num">12</span><span class="stat-label">Reforms Demanded</span></div>
     <div><span class="stat-num">65M+</span><span class="stat-label">Americans Affected</span></div>
   </div>
+</div>
+
+<!-- CONTACT CONGRESS BANNER -->
+<div class="congress-banner">
+  <p>Every signature matters. Go further -- contact your senators and representative directly.</p>
+  <a href="contact-congress.html">Contact Congress with Your Pre-Written Message</a>
 </div>
 
 <!-- ISSUES -->
@@ -213,6 +231,10 @@
             <li>Your district is included in the weekly digest sent to congressional offices</li>
           </ul>
         </div>
+        <div style="margin-top:1.25rem;background:var(--gold);padding:1.25rem;border-radius:4px;text-align:center;">
+          <p style="font-size:0.9rem;font-weight:700;color:var(--navy);margin-bottom:0.75rem;font-style:normal;">Want to go further? Contact Congress directly.</p>
+          <a href="contact-congress.html" style="display:inline-block;background:var(--navy);color:white;padding:0.65rem 1.5rem;border-radius:3px;text-decoration:none;font-family:'Playfair Display',serif;font-weight:700;font-size:0.9rem;">Contact Congress Now</a>
+        </div>
       </div>
 
       <div>
@@ -222,7 +244,6 @@
             <p>Your signature has been recorded. See your representatives below and send them your letter.</p>
           </div>
 
-          <!-- FORM -->
           <div id="petitionForm">
             <div class="form-row">
               <div class="form-group">
@@ -234,17 +255,14 @@
                 <input class="form-input" type="text" id="lname" placeholder="Smith" autocomplete="family-name">
               </div>
             </div>
-
             <div class="form-group">
               <label class="form-label">Email Address <span class="req">*</span></label>
               <input class="form-input" type="email" id="email" placeholder="jane@example.com" autocomplete="email">
             </div>
-
             <div class="form-group">
               <label class="form-label">Street Address <span class="req">*</span></label>
               <input class="form-input" type="text" id="address" placeholder="123 Main Street" autocomplete="street-address">
             </div>
-
             <div class="form-row">
               <div class="form-group">
                 <label class="form-label">City <span class="req">*</span></label>
@@ -255,79 +273,23 @@
                 <input class="form-input" type="text" id="zip" placeholder="10001" maxlength="5" autocomplete="postal-code">
               </div>
             </div>
-
             <div class="form-group">
               <label class="form-label">State <span class="req">*</span></label>
               <select class="form-input" id="state" autocomplete="address-level1">
                 <option value="">Select your state...</option>
-                <option value="Alabama">Alabama</option>
-                <option value="Alaska">Alaska</option>
-                <option value="Arizona">Arizona</option>
-                <option value="Arkansas">Arkansas</option>
-                <option value="California">California</option>
-                <option value="Colorado">Colorado</option>
-                <option value="Connecticut">Connecticut</option>
-                <option value="Delaware">Delaware</option>
-                <option value="Florida">Florida</option>
-                <option value="Georgia">Georgia</option>
-                <option value="Hawaii">Hawaii</option>
-                <option value="Idaho">Idaho</option>
-                <option value="Illinois">Illinois</option>
-                <option value="Indiana">Indiana</option>
-                <option value="Iowa">Iowa</option>
-                <option value="Kansas">Kansas</option>
-                <option value="Kentucky">Kentucky</option>
-                <option value="Louisiana">Louisiana</option>
-                <option value="Maine">Maine</option>
-                <option value="Maryland">Maryland</option>
-                <option value="Massachusetts">Massachusetts</option>
-                <option value="Michigan">Michigan</option>
-                <option value="Minnesota">Minnesota</option>
-                <option value="Mississippi">Mississippi</option>
-                <option value="Missouri">Missouri</option>
-                <option value="Montana">Montana</option>
-                <option value="Nebraska">Nebraska</option>
-                <option value="Nevada">Nevada</option>
-                <option value="New Hampshire">New Hampshire</option>
-                <option value="New Jersey">New Jersey</option>
-                <option value="New Mexico">New Mexico</option>
-                <option value="New York">New York</option>
-                <option value="North Carolina">North Carolina</option>
-                <option value="North Dakota">North Dakota</option>
-                <option value="Ohio">Ohio</option>
-                <option value="Oklahoma">Oklahoma</option>
-                <option value="Oregon">Oregon</option>
-                <option value="Pennsylvania">Pennsylvania</option>
-                <option value="Rhode Island">Rhode Island</option>
-                <option value="South Carolina">South Carolina</option>
-                <option value="South Dakota">South Dakota</option>
-                <option value="Tennessee">Tennessee</option>
-                <option value="Texas">Texas</option>
-                <option value="Utah">Utah</option>
-                <option value="Vermont">Vermont</option>
-                <option value="Virginia">Virginia</option>
-                <option value="Washington">Washington</option>
-                <option value="West Virginia">West Virginia</option>
-                <option value="Wisconsin">Wisconsin</option>
-                <option value="Wyoming">Wyoming</option>
+                <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option><option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option><option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="Florida">Florida</option><option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option><option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option><option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option><option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option><option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option><option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option><option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option><option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option><option value="North Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option><option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option><option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option><option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option><option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option><option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
               </select>
             </div>
-
-
-
             <div class="form-group">
               <label class="form-label">Personal Statement (optional)</label>
               <textarea class="form-input" id="statement" placeholder="Share how these issues have personally affected you or someone you love..."></textarea>
             </div>
-
             <div id="formError" style="display:none;background:#fdecea;border:1px solid #f44336;padding:0.75rem;border-radius:3px;font-size:0.85rem;color:#c62828;margin-bottom:0.75rem;"></div>
-
             <button class="submit-btn" id="submitBtn" onclick="submitForm()">Sign the Petition</button>
             <p class="all-reforms-note">By signing, you support all 12 Medicare and Social Security reforms listed on this page.</p>
             <p class="privacy">Your email is never shared or sold. Your address is used only to identify your representatives.</p>
           </div>
 
-          <!-- REP RESULTS -->
           <div class="rep-section" id="repSection">
             <h3>Your Elected Representatives</h3>
             <p>Click "Send Letter" on each card to open a personalized pre-written message in your email app.</p>
@@ -363,7 +325,6 @@
     <h2 class="section-title">Weekly Digest</h2>
     <p class="section-intro">Every week, a full summary of all signatures organized by congressional district is available for download and distribution directly to elected officials.</p>
     <div class="digest-grid">
-
       <div class="digest-box">
         <h4>Email the Digest to Representatives</h4>
         <p>Generate a formatted weekly summary email covering all districts where constituents have signed, ready to send from your email client.</p>
@@ -381,607 +342,129 @@
 
 <footer>
   <p><strong>Fix Medicare Now</strong> is a nonpartisan citizen advocacy initiative. We do not represent any political party, candidate, or commercial interest. We represent the people.</p>
-  <p style="margin-top:0.6rem;font-size:0.75rem;">To find your congressional representatives visit <a href="https://www.congress.gov/members/find-your-member" target="_blank" style="color:#e8b44a;">congress.gov</a></p>
+  <p style="margin-top:0.6rem;font-size:0.75rem;">To find your congressional representatives visit <a href="https://www.congress.gov/members/find-your-member" target="_blank" style="color:#e8b44a;">congress.gov</a> or <a href="contact-congress.html" style="color:#e8b44a;">use our Contact Congress tool</a></p>
 </footer>
 
 <script>
   var CIVIC_KEY  = 'AIzaSyCEOLG1xySWcdWJhhavCwcF2uZt68it2ZY';
-
-  // ── EMAILJS CONFIG (filled in after setup) ───────────────────
   var EJS_PUBLIC_KEY  = 'tfqqUeFE3SoT2jS9j';
   var EJS_SERVICE_ID  = 'fixmedicare';
   var EJS_TEMPLATE_ID = 'template_gwlzg4n';
-
-  // Initialize EmailJS
-  if (typeof emailjs !== 'undefined') {
-    emailjs.init({ publicKey: EJS_PUBLIC_KEY });
-  }
+  if (typeof emailjs !== 'undefined') { emailjs.init({ publicKey: EJS_PUBLIC_KEY }); }
   var SHEET_URL  = 'https://script.google.com/macros/s/AKfycbzMqN7Jn9ewBNCR3w-kThusynyCuCNj6JgCVguo8hQmk7sK4vx7HKufJ7CkBuMm6uqq/exec';
   var signatures = [];
 
-  // ── SUBMIT ──────────────────────────────────────────────────
   function submitForm() {
-    var fname     = document.getElementById('fname').value.trim();
-    var lname     = document.getElementById('lname').value.trim();
-    var email     = document.getElementById('email').value.trim();
-    var address   = document.getElementById('address').value.trim();
-    var city      = document.getElementById('city').value.trim();
-    var zip       = document.getElementById('zip').value.trim();
-    var state     = document.getElementById('state').value;
-    var statement = document.getElementById('statement').value.trim();
-    var errBox    = document.getElementById('formError');
-
-    // All 12 reforms supported by every signer
-    var issues = [
-      'Late Enrollment Penalties', 'Home Care Access', 'Hearing Aid Coverage',
-      'Medical Supplies', 'Dental Coverage', 'Vision Coverage',
-      'Price Transparency', 'Laser Cataract Surgery', 'Drug Plan Costs',
-      'Physician Pay', 'Medical Transportation', 'Social Security Benefits'
-    ];
-
-    // Validate
-    errBox.style.display = 'none';
-    if (!fname || !lname || !email || !address || !city || !zip || !state) {
-      errBox.textContent = 'Please fill in all required fields.';
-      errBox.style.display = 'block';
-      return;
-    }
-
-    var btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>Looking up your representatives...';
-
-    var fullAddress = address + ', ' + city + ', ' + state + ' ' + zip;
-
-    fetchReps(fullAddress, function(reps) {
-      var houseRep = '';
-      var senators = [];
-      for (var i = 0; i < reps.length; i++) {
-        if (reps[i].role.toLowerCase().indexOf('representative') > -1) houseRep = reps[i].name;
-        if (reps[i].role.toLowerCase().indexOf('senator') > -1) senators.push(reps[i].name);
-      }
-
-      var senStr = senators.join(', ');
-      var sig = {
-        fname: fname, lname: lname, fullName: fname + ' ' + lname,
-        displayName: fname + ' ' + lname.charAt(0) + '.',
-        email: email, city: city, state: state, zip: zip,
-        address: fullAddress, issues: issues, statement: statement,
-        reps: reps, houseRep: houseRep, senators: senStr,
-        date: new Date().toLocaleDateString()
-      };
-
-      signatures.push(sig);
-      saveSignature(sig);
-      saveLocal();
-      updateCounts();
-
-      // Send admin notification email with rep info
-      var hRep = sig.houseRep || '';
-      var sens = sig.senators  || '';
-      sendNotificationEmail(sig, hRep, sens);
-      renderTable();
-      showSuccess();
-      showReps(reps, sig);
-
-      btn.disabled = false;
-      btn.innerHTML = 'Sign the Petition';
-
-      // Reset form fields
-      document.getElementById('fname').value = '';
-      document.getElementById('lname').value = '';
-      document.getElementById('email').value = '';
-      document.getElementById('address').value = '';
-      document.getElementById('city').value = '';
-      document.getElementById('zip').value = '';
-      document.getElementById('state').value = '';
-      document.getElementById('statement').value = '';
-
+    var fname=document.getElementById('fname').value.trim(),lname=document.getElementById('lname').value.trim(),email=document.getElementById('email').value.trim(),address=document.getElementById('address').value.trim(),city=document.getElementById('city').value.trim(),zip=document.getElementById('zip').value.trim(),state=document.getElementById('state').value,statement=document.getElementById('statement').value.trim(),errBox=document.getElementById('formError');
+    var issues=['Late Enrollment Penalties','Home Care Access','Hearing Aid Coverage','Medical Supplies','Dental Coverage','Vision Coverage','Price Transparency','Laser Cataract Surgery','Drug Plan Costs','Physician Pay','Medical Transportation','Social Security Benefits'];
+    errBox.style.display='none';
+    if(!fname||!lname||!email||!address||!city||!zip||!state){errBox.textContent='Please fill in all required fields.';errBox.style.display='block';return;}
+    var btn=document.getElementById('submitBtn');btn.disabled=true;btn.innerHTML='<span class="spinner"></span>Looking up your representatives...';
+    var fullAddress=address+', '+city+', '+state+' '+zip;
+    fetchReps(fullAddress,function(reps){
+      var houseRep='',senators=[];
+      for(var i=0;i<reps.length;i++){if(reps[i].role.toLowerCase().indexOf('representative')>-1)houseRep=reps[i].name;if(reps[i].role.toLowerCase().indexOf('senator')>-1)senators.push(reps[i].name);}
+      var senStr=senators.join(', ');
+      var sig={fname:fname,lname:lname,fullName:fname+' '+lname,displayName:fname+' '+lname.charAt(0)+'.',email:email,city:city,state:state,zip:zip,address:fullAddress,issues:issues,statement:statement,reps:reps,houseRep:houseRep,senators:senStr,date:new Date().toLocaleDateString()};
+      signatures.push(sig);saveSignature(sig);saveLocal();updateCounts();sendNotificationEmail(sig,sig.houseRep||'',sig.senators||'');renderTable();showSuccess();showReps(reps,sig);
+      btn.disabled=false;btn.innerHTML='Sign the Petition';
+      document.getElementById('fname').value='';document.getElementById('lname').value='';document.getElementById('email').value='';document.getElementById('address').value='';document.getElementById('city').value='';document.getElementById('zip').value='';document.getElementById('state').value='';document.getElementById('statement').value='';
     });
   }
 
-  // ── FETCH REPS via Google Civic API (works on GitHub Pages) ──
-  function fetchReps(address, callback) {
-    var url = 'https://www.googleapis.com/civicinfo/v2/representatives' +
-      '?key=' + CIVIC_KEY +
-      '&address=' + encodeURIComponent(address) +
-      '&levels=country' +
-      '&roles=legislatorUpperBody' +
-      '&roles=legislatorLowerBody';
+  function fetchReps(address,callback){
+    var url='https://www.googleapis.com/civicinfo/v2/representatives?key='+CIVIC_KEY+'&address='+encodeURIComponent(address)+'&levels=country&roles=legislatorUpperBody&roles=legislatorLowerBody';
+    var xhr=new XMLHttpRequest();xhr.open('GET',url,true);xhr.timeout=10000;
+    xhr.onreadystatechange=function(){if(xhr.readyState===4){if(xhr.status===200){try{var data=JSON.parse(xhr.responseText),officials=data.officials||[],offices=data.offices||[],reps=[];for(var i=0;i<offices.length;i++){var office=offices[i],indices=office.officialIndices||[];for(var j=0;j<indices.length;j++){var o=officials[indices[j]];if(!o)continue;reps.push({role:office.name,name:o.name,party:o.party||'',photo:o.photoUrl||'',emails:o.emails||[],phones:o.phones||[],urls:o.urls||[]});}}callback(reps);}catch(e){callback([]);}}else{callback([]);}}};
+    xhr.ontimeout=function(){callback([]);};xhr.onerror=function(){callback([]);};xhr.send();
+  }
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.timeout = 10000;
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          try {
-            var data      = JSON.parse(xhr.responseText);
-            var officials = data.officials || [];
-            var offices   = data.offices   || [];
-            var reps      = [];
-            for (var i = 0; i < offices.length; i++) {
-              var office  = offices[i];
-              var indices = office.officialIndices || [];
-              for (var j = 0; j < indices.length; j++) {
-                var o = officials[indices[j]];
-                if (!o) continue;
-                reps.push({
-                  role:   office.name,
-                  name:   o.name,
-                  party:  o.party    || '',
-                  photo:  o.photoUrl || '',
-                  emails: o.emails   || [],
-                  phones: o.phones   || [],
-                  urls:   o.urls     || []
-                });
-              }
-            }
-            callback(reps);
-          } catch(e) { callback([]); }
-        } else { callback([]); }
+  function sendNotificationEmail(sig,houseRep,senators){
+    if(typeof emailjs==='undefined')return;
+    emailjs.send(EJS_SERVICE_ID,EJS_TEMPLATE_ID,{signer_name:sig.fullName,signer_email:sig.email,signer_address:sig.address,signer_city:sig.city,signer_state:sig.state,signer_zip:sig.zip,house_rep:houseRep||'Not found',senators:senators||'Not found',statement:sig.statement||'None provided',date:new Date().toLocaleString()}).then(function(){console.log('Email sent');}).catch(function(err){console.warn('Email failed:',err);});
+  }
+
+  function saveSignature(sig){var xhr=new XMLHttpRequest();xhr.open('POST',SHEET_URL,true);xhr.setRequestHeader('Content-Type','text/plain');xhr.send(JSON.stringify({fname:sig.fname,lname:sig.lname,email:sig.email,city:sig.city,state:sig.state,zip:sig.zip,houseRep:sig.houseRep||'Looking up...',senators:sig.senators||'Looking up...',statement:sig.statement||''}));}
+
+  function loadLocalSignatures(){try{var stored=localStorage.getItem('fixMedicareSignatures');if(stored)signatures=JSON.parse(stored);}catch(e){}renderTable();updateCounts();}
+  function saveLocal(){try{localStorage.setItem('fixMedicareSignatures',JSON.stringify(signatures));}catch(e){}}
+  function showSuccess(){document.getElementById('successBox').style.display='block';}
+
+  function showReps(reps,sig){
+    var section=document.getElementById('repSection'),cards=document.getElementById('repCards'),errDiv=document.getElementById('repError');
+    section.style.display='block';errDiv.style.display='none';
+    var issueList='';for(var ii=0;ii<sig.issues.length;ii++){issueList+=(ii+1)+'. '+sig.issues[ii]+'\n';}
+    var letterText='Dear Representative/Senator,\n\nMy name is '+sig.fullName+' and I am a constituent residing in '+sig.city+', '+sig.state+' (ZIP: '+sig.zip+').\n\nI am writing to urge you to support meaningful reform to Medicare and Social Security. I have signed the Fix Medicare Now petition and support the following reforms:\n\n'+issueList+(sig.statement?'\nIn my own words:\n'+sig.statement+'\n':'')+'\nThese issues directly affect my health and financial security. I respectfully request that you review the reforms at www.fixmedicare.org and support legislation that addresses these gaps.\n\nThank you for your service.\n\nRespectfully,\n'+sig.fullName+'\n'+sig.city+', '+sig.state+' '+sig.zip;
+    var mailtoSubject=encodeURIComponent('Constituent Petition: Medicare and Social Security Reform');
+    var mailtoBody=encodeURIComponent(letterText);
+    var congressUrl='https://www.congress.gov/members/find-your-member?zip='+sig.zip;
+    var democracyUrl='https://democracy.io/';
+    window._petitionLetter=letterText;window._petitionSubject='Constituent Petition: Medicare and Social Security Reform';
+
+    if(reps&&reps.length>0){
+      var html='<div style="margin-bottom:1.25rem">';
+      for(var ri=0;ri<reps.length;ri++){
+        var rep=reps[ri],repUrl=(rep.urls&&rep.urls.length)?rep.urls[0]:congressUrl,contactUrl=repUrl.replace(/\/$/,'')+'/contact';
+        var photo=rep.photo?'<img src="'+rep.photo+'" style="width:54px;height:54px;border-radius:50%;border:2px solid #c8922a;object-fit:cover;margin-bottom:0.4rem" alt="'+rep.name+'">':'<div style="width:54px;height:54px;border-radius:50%;background:#ede7dc;border:2px solid #c8922a;display:inline-flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:0.4rem">&#128100;</div>';
+        var partyColor=rep.party&&rep.party.indexOf('Republican')>-1?'#b03030':rep.party&&rep.party.indexOf('Democrat')>-1?'#1a3a5c':'#4a4a4a';
+        var mailto='mailto:?subject='+mailtoSubject+'&body='+mailtoBody;
+        html+='<div style="display:inline-block;vertical-align:top;background:#f7f3ee;border:1px solid #ede7dc;border-radius:6px;padding:1rem;text-align:center;margin:0.35rem;min-width:175px;max-width:220px">'+photo+'<div style="font-size:0.68rem;color:#7a7a7a;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.2rem">'+rep.role+'</div><div style="font-family:Georgia,serif;font-size:0.92rem;font-weight:700;color:#0d2340;margin-bottom:0.15rem">'+rep.name+'</div><div style="font-size:0.75rem;color:'+partyColor+';font-style:italic;margin-bottom:0.6rem">'+rep.party+'</div><a href="'+contactUrl+'" target="_blank" style="display:block;padding:0.4rem;background:#0d2340;color:white;border-radius:3px;text-decoration:none;font-size:0.7rem;font-weight:700;text-transform:uppercase;margin-bottom:0.3rem">Contact Page</a><a href="'+mailto+'" style="display:block;padding:0.4rem;background:#c8922a;color:#0d2340;border-radius:3px;text-decoration:none;font-size:0.7rem;font-weight:700;text-transform:uppercase">Copy Letter</a></div>';
       }
-    };
-    xhr.ontimeout = function() { callback([]); };
-    xhr.onerror   = function() { callback([]); };
-    xhr.send();
-  }
-
-  // ── SEND EMAIL NOTIFICATION VIA EMAILJS ─────────────────────
-  function sendNotificationEmail(sig, houseRep, senators) {
-    if (typeof emailjs === 'undefined') return;
-    if (EJS_PUBLIC_KEY === 'PASTE_YOUR_PUBLIC_KEY_HERE') return;
-
-    var repNames = [];
-    if (houseRep) repNames.push(houseRep);
-    if (senators) repNames.push(senators);
-
-    emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, {
-      signer_name:    sig.fullName,
-      signer_email:   sig.email,
-      signer_address: sig.address,
-      signer_city:    sig.city,
-      signer_state:   sig.state,
-      signer_zip:     sig.zip,
-      house_rep:      houseRep  || 'Not found',
-      senators:       senators  || 'Not found',
-      statement:      sig.statement || 'None provided',
-      date:           new Date().toLocaleString()
-    }).then(function() {
-      console.log('Notification email sent successfully');
-    }).catch(function(err) {
-      console.warn('Email notification failed:', err);
-    });
-  }
-
-  // ── SAVE SIGNATURE TO GOOGLE SHEET ───────────────────────────
-  function saveSignature(sig) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', SHEET_URL, true);
-    xhr.setRequestHeader('Content-Type', 'text/plain');
-    xhr.send(JSON.stringify({
-      fname:     sig.fname,
-      lname:     sig.lname,
-      email:     sig.email,
-      city:      sig.city,
-      state:     sig.state,
-      zip:       sig.zip,
-      houseRep:  sig.houseRep  || 'Looking up...',
-      senators:  sig.senators  || 'Looking up...',
-      statement: sig.statement || ''
-    }));
-  }
-
-  // ── SAVE TO LOCALSTORAGE (persists across reloads in same browser) ─
-  function loadLocalSignatures() {
-    try {
-      var stored = localStorage.getItem('fixMedicareSignatures');
-      if (stored) {
-        signatures = JSON.parse(stored);
-      }
-    } catch(e) {}
-    renderTable();
-    updateCounts();
-  }
-
-  function saveLocal() {
-    try {
-      localStorage.setItem('fixMedicareSignatures', JSON.stringify(signatures));
-    } catch(e) {}
-  }
-
-  // ── SHOW SUCCESS ────────────────────────────────────────────
-  function showSuccess() {
-    document.getElementById('successBox').style.display = 'block';
-  }
-
-  // ── SHOW REP SECTION ────────────────────────────────────────
-  function showReps(reps, sig) {
-    var section = document.getElementById('repSection');
-    var cards   = document.getElementById('repCards');
-    var errDiv  = document.getElementById('repError');
-    section.style.display = 'block';
-    errDiv.style.display  = 'none';
-
-    // Build issue list for letter
-    var issueList = '';
-    for (var ii = 0; ii < sig.issues.length; ii++) {
-      issueList += (ii + 1) + '. ' + sig.issues[ii] + '\n';
+      html+='</div><div style="background:#e8f5e9;border:1px solid #4caf50;border-radius:4px;padding:1rem;margin-top:0.5rem"><div style="font-size:0.82rem;font-weight:700;color:#2e7d32;margin-bottom:0.5rem">Easiest way to reach all 3 at once:</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem"><a href="'+democracyUrl+'" target="_blank" style="display:block;padding:0.5rem;background:#2e7d32;color:white;border-radius:3px;text-decoration:none;font-size:0.75rem;font-weight:700;text-transform:uppercase;text-align:center">Democracy.io<br><span style="font-size:0.65rem;font-weight:400">Routes to all 3 reps</span></a><a href="sms:50409" style="display:block;padding:0.5rem;background:#1a3a5c;color:white;border-radius:3px;text-decoration:none;font-size:0.75rem;font-weight:700;text-transform:uppercase;text-align:center">Text Resistbot<br><span style="font-size:0.65rem;font-weight:400">Text RESIST to 50409</span></a></div></div>';
+      cards.innerHTML=html;return;
     }
 
-    // Build letter text
-    var letterText =
-      'Dear Representative/Senator,\n\n' +
-      'My name is ' + sig.fullName + ' and I am a constituent residing in ' +
-      sig.city + ', ' + sig.state + ' (ZIP: ' + sig.zip + ').\n\n' +
-      'I am writing to urge you to support meaningful reform to Medicare and Social Security. ' +
-      'I have signed the Fix Medicare Now petition and support the following reforms:\n\n' +
-      issueList +
-      (sig.statement ? '\nIn my own words:\n' + sig.statement + '\n' : '') +
-      '\nThese issues directly affect my health and financial security. I respectfully request that you:\n' +
-      '- Review the reforms being demanded at www.fixmedicare.org\n' +
-      '- Co-sponsor or support legislation that addresses these gaps\n' +
-      '- Hold hearings that give seniors a meaningful voice\n\n' +
-      'Thank you for your service.\n\n' +
-      'Respectfully,\n' + sig.fullName + '\n' + sig.city + ', ' + sig.state + ' ' + sig.zip;
-
-    var letterSubject = 'Constituent Petition: Medicare and Social Security Reform';
-    var mailtoBody    = encodeURIComponent(letterText);
-    var mailtoSubject = encodeURIComponent(letterSubject);
-
-    // Resistbot pre-filled URL (opens SMS with pre-written message)
-    var resistbotMsg  = encodeURIComponent(letterText.substring(0, 300));
-    var resistbotUrl  = 'sms:50409?body=' + resistbotMsg;
-
-    // Democracy.io pre-fills message for all reps at once
-    var democracyUrl  = 'https://democracy.io/#!/';
-
-    // Congress.gov member finder with ZIP
-    var congressUrl   = 'https://www.congress.gov/members/find-your-member?zip=' + sig.zip;
-
-    // If we got actual reps from the API, show their cards with direct contact links
-    if (reps && reps.length > 0) {
-      var html = '';
-
-      // Show each rep card with their official contact page
-      html += '<div style="margin-bottom:1.25rem">';
-      for (var ri = 0; ri < reps.length; ri++) {
-        var rep     = reps[ri];
-        var repUrl  = (rep.urls && rep.urls.length) ? rep.urls[0] : congressUrl;
-        // Build contact URL - most official sites have /contact
-        var contactUrl = repUrl.replace(/\/$/, '') + '/contact';
-        var photo = rep.photo
-          ? '<img src="' + rep.photo + '" style="width:54px;height:54px;border-radius:50%;border:2px solid #c8922a;object-fit:cover;margin-bottom:0.4rem" alt="' + rep.name + '">'
-          : '<div style="width:54px;height:54px;border-radius:50%;background:#ede7dc;border:2px solid #c8922a;display:inline-flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:0.4rem">&#128100;</div>';
-        var partyColor = rep.party && rep.party.indexOf('Republican') > -1 ? '#b03030' : rep.party && rep.party.indexOf('Democrat') > -1 ? '#1a3a5c' : '#4a4a4a';
-        var mailto = 'mailto:?subject=' + mailtoSubject + '&body=' + mailtoBody;
-
-        html +=
-          '<div style="display:inline-block;vertical-align:top;background:#f7f3ee;border:1px solid #ede7dc;border-radius:6px;padding:1rem;text-align:center;margin:0.35rem;min-width:175px;max-width:220px">' +
-            photo +
-            '<div style="font-size:0.68rem;color:#7a7a7a;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.2rem">' + rep.role + '</div>' +
-            '<div style="font-family:Georgia,serif;font-size:0.92rem;font-weight:700;color:#0d2340;margin-bottom:0.15rem">' + rep.name + '</div>' +
-            '<div style="font-size:0.75rem;color:' + partyColor + ';font-style:italic;margin-bottom:0.6rem">' + rep.party + '</div>' +
-            '<a href="' + contactUrl + '" target="_blank" style="display:block;padding:0.4rem;background:#0d2340;color:white;border-radius:3px;text-decoration:none;font-size:0.7rem;font-weight:700;text-transform:uppercase;margin-bottom:0.3rem">Contact Page</a>' +
-            '<a href="' + mailto + '" style="display:block;padding:0.4rem;background:#c8922a;color:#0d2340;border-radius:3px;text-decoration:none;font-size:0.7rem;font-weight:700;text-transform:uppercase">Copy Letter</a>' +
-          '</div>';
-      }
-      html += '</div>';
-
-      // Add Resistbot and Democracy.io as easy alternatives
-      html +=
-        '<div style="background:#e8f5e9;border:1px solid #4caf50;border-radius:4px;padding:1rem;margin-top:0.5rem">' +
-          '<div style="font-size:0.82rem;font-weight:700;color:#2e7d32;margin-bottom:0.5rem">Easiest way to reach all 3 at once:</div>' +
-          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem">' +
-            '<a href="' + democracyUrl + '" target="_blank" style="display:block;padding:0.5rem;background:#2e7d32;color:white;border-radius:3px;text-decoration:none;font-size:0.75rem;font-weight:700;text-transform:uppercase;text-align:center">Democracy.io<br><span style="font-size:0.65rem;font-weight:400">Routes to all 3 reps</span></a>' +
-            '<a href="' + resistbotUrl + '" style="display:block;padding:0.5rem;background:#1a3a5c;color:white;border-radius:3px;text-decoration:none;font-size:0.75rem;font-weight:700;text-transform:uppercase;text-align:center">Text Resistbot<br><span style="font-size:0.65rem;font-weight:400">Text RESIST to 50409</span></a>' +
-          '</div>' +
-        '</div>';
-
-      cards.innerHTML = html;
-      return;
-    }
-
-    // No reps found - show full action panel
-    window._petitionLetter  = letterText;
-    window._petitionSubject = letterSubject;
-
-    var democracyUrl = 'https://democracy.io/';
-    var congressUrl  = 'https://www.congress.gov/members/find-your-member?zip=' + sig.zip;
-
-    cards.innerHTML =
-      '<div style="background:white;border:1px solid #ede7dc;border-radius:8px;padding:1.75rem;max-width:560px;margin:0 auto">' +
-
-        // Header
-        '<div style="text-align:center;margin-bottom:1.5rem">' +
-          '<div style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;background:#e8f5e9;border-radius:50%;margin-bottom:0.75rem">' +
-            '<span style="font-size:1.4rem;color:#2e7d32">&#10003;</span>' +
-          '</div>' +
-          '<h3 style="font-family:Georgia,serif;font-size:1.2rem;color:#0d2340;margin:0 0 0.35rem">Signature Recorded!</h3>' +
-          '<p style="font-size:0.85rem;color:#4a4a4a;font-weight:300;margin:0">' +
-            'Now contact your 3 representatives using the steps below.' +
-          '</p>' +
-        '</div>' +
-
-        // Step 1
-        '<div style="border:1.5px solid #c8922a;border-radius:6px;padding:1rem 1.25rem;margin-bottom:0.75rem;background:#fffdf8">' +
-          '<div style="display:flex;align-items:center;gap:0.85rem;margin-bottom:0.6rem">' +
-            '<div style="min-width:28px;height:28px;background:#c8922a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;color:#0d2340">1</div>' +
-            '<div style="font-size:0.88rem;font-weight:700;color:#0d2340">Copy your personalized letter</div>' +
-          '</div>' +
-          '<p style="font-size:0.8rem;color:#4a4a4a;font-weight:300;margin:0 0 0.75rem;padding-left:2.6rem">' +
-            'Click below to copy your pre-written letter to your clipboard. You will paste it in Step 2.' +
-          '</p>' +
-          '<button onclick="copyLetter()" id="copyBtn" style="width:100%;padding:0.65rem;background:#c8922a;color:#0d2340;border:none;border-radius:4px;font-size:0.82rem;font-weight:700;text-transform:uppercase;cursor:pointer;letter-spacing:0.06em;transition:background 0.2s">' +
-            'Copy Letter to Clipboard' +
-          '</button>' +
-          '<div id="copyConfirm" style="display:none;text-align:center;color:#2e7d32;font-size:0.8rem;font-weight:600;margin-top:0.5rem;padding:0.35rem;background:#e8f5e9;border-radius:3px">&#10003; Letter copied! Proceed to Step 2.</div>' +
-        '</div>' +
-
-        // Step 2
-        '<div style="border:1.5px solid #0d2340;border-radius:6px;padding:1rem 1.25rem;margin-bottom:1.25rem;background:#f7f9fc">' +
-          '<div style="display:flex;align-items:center;gap:0.85rem;margin-bottom:0.6rem">' +
-            '<div style="min-width:28px;height:28px;background:#0d2340;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.85rem;color:#c8922a">2</div>' +
-            '<div style="font-size:0.88rem;font-weight:700;color:#0d2340">Go to Democracy.io and paste your letter</div>' +
-          '</div>' +
-          '<p style="font-size:0.8rem;color:#4a4a4a;font-weight:300;margin:0 0 0.75rem;padding-left:2.6rem">' +
-            'Democracy.io finds your House Rep and both Senators by your address and delivers your message through their official contact forms automatically.' +
-          '</p>' +
-          '<a href="' + democracyUrl + '" target="_blank" style="display:block;padding:0.65rem;background:#0d2340;color:white;border-radius:4px;text-decoration:none;font-size:0.82rem;font-weight:700;text-transform:uppercase;text-align:center;letter-spacing:0.06em">' +
-            'Open Democracy.io' +
-          '</a>' +
-        '</div>' +
-
-        // Divider
-        '<div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem">' +
-          '<div style="flex:1;height:1px;background:#ede7dc"></div>' +
-          '<span style="font-size:0.75rem;color:#7a7a7a;white-space:nowrap">Or use these alternatives</span>' +
-          '<div style="flex:1;height:1px;background:#ede7dc"></div>' +
-        '</div>' +
-
-        // Alternatives - equal columns
-        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">' +
-
-          '<div style="border:1px solid #ede7dc;border-radius:6px;padding:0.9rem;text-align:center;background:#f7f3ee">' +
-            '<div style="font-size:0.82rem;font-weight:700;color:#0d2340;margin-bottom:0.3rem">Resistbot</div>' +
-            '<div style="font-size:0.75rem;color:#4a4a4a;font-weight:300;margin-bottom:0.65rem;line-height:1.4">' +
-              'Text RESIST to 50409. Resistbot delivers to all your reps automatically.' +
-            '</div>' +
-            '<a href="sms:50409" style="display:block;padding:0.5rem;background:#1a3a5c;color:white;border-radius:4px;text-decoration:none;font-size:0.75rem;font-weight:700;text-transform:uppercase">Text 50409</a>' +
-          '</div>' +
-
-          '<div style="border:1px solid #ede7dc;border-radius:6px;padding:0.9rem;text-align:center;background:#f7f3ee">' +
-            '<div style="font-size:0.82rem;font-weight:700;color:#0d2340;margin-bottom:0.3rem">Find My Reps</div>' +
-            '<div style="font-size:0.75rem;color:#4a4a4a;font-weight:300;margin-bottom:0.65rem;line-height:1.4">' +
-              'Look up your exact House Rep and Senators by ZIP on congress.gov.' +
-            '</div>' +
-            '<a href="' + congressUrl + '" target="_blank" style="display:block;padding:0.5rem;background:#0d2340;color:white;border-radius:4px;text-decoration:none;font-size:0.75rem;font-weight:700;text-transform:uppercase">Find My Reps</a>' +
-          '</div>' +
-
-        '</div>' +
-
-        // Footer note
-        '<p style="font-size:0.72rem;color:#7a7a7a;text-align:center;margin-top:1rem;font-style:italic;margin-bottom:0">' +
-          'You have 3 representatives to contact: 1 House member and 2 Senators. Please reach all three.' +
-        '</p>' +
-
-      '</div>';  }
-
-  // ── BUILD MAILTO ────────────────────────────────────────────
-  function buildMailto(rep, sig) {
-    var to      = (rep.emails && rep.emails.length) ? rep.emails[0] : '';
-    var subject = encodeURIComponent('Constituent Petition: Medicare and Social Security Reform');
-    var issueList = '';
-    for (var i = 0; i < sig.issues.length; i++) {
-      issueList += (i + 1) + '. ' + sig.issues[i] + '\n';
-    }
-    var body = encodeURIComponent(
-      'Dear ' + rep.name + ',\n\n' +
-      'My name is ' + sig.fullName + ' and I am a constituent residing in ' + sig.city + ', ' + sig.state + ' (ZIP: ' + sig.zip + ').\n\n' +
-      'I am writing to urge you to support meaningful reform to Medicare and Social Security. I have signed the Fix Medicare Now petition and specifically support the following reforms:\n\n' +
-      issueList +
-      (sig.statement ? '\nIn my own words:\n"' + sig.statement + '"\n' : '') +
-      '\nThese are not abstract policy concerns. They directly affect my health, my financial security, and the security of millions of Americans who have paid into these programs their entire working lives.\n\n' +
-      'I respectfully request that you:\n' +
-      '- Review the full petition and the reforms being demanded\n' +
-      '- Co-sponsor or support legislation that addresses these gaps\n' +
-      '- Hold hearings that give seniors and Medicare beneficiaries a meaningful voice\n\n' +
-      'Thank you for your service and for taking the time to hear from your constituents.\n\n' +
-      'Respectfully,\n' + sig.fullName + '\n' + sig.city + ', ' + sig.state + ' ' + sig.zip
-    );
-    return 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+    cards.innerHTML='<div style="background:white;border:1px solid #ede7dc;border-radius:8px;padding:1.75rem;max-width:560px;margin:0 auto"><div style="text-align:center;margin-bottom:1.5rem"><h3 style="font-family:Georgia,serif;font-size:1.2rem;color:#0d2340;margin:0 0 0.35rem">Signature Recorded!</h3><p style="font-size:0.85rem;color:#4a4a4a;font-weight:300;margin:0">Now contact your 3 representatives using the steps below.</p></div><div style="border:1.5px solid #c8922a;border-radius:6px;padding:1rem 1.25rem;margin-bottom:0.75rem;background:#fffdf8"><div style="font-size:0.88rem;font-weight:700;color:#0d2340;margin-bottom:0.6rem">Step 1 -- Copy your personalized letter</div><button onclick="copyLetter()" id="copyBtn" style="width:100%;padding:0.65rem;background:#c8922a;color:#0d2340;border:none;border-radius:4px;font-size:0.82rem;font-weight:700;text-transform:uppercase;cursor:pointer">Copy Letter to Clipboard</button><div id="copyConfirm" style="display:none;text-align:center;color:#2e7d32;font-size:0.8rem;font-weight:600;margin-top:0.5rem;padding:0.35rem;background:#e8f5e9;border-radius:3px">Copied! Proceed to Step 2.</div></div><div style="border:1.5px solid #0d2340;border-radius:6px;padding:1rem 1.25rem;margin-bottom:1.25rem;background:#f7f9fc"><div style="font-size:0.88rem;font-weight:700;color:#0d2340;margin-bottom:0.6rem">Step 2 -- Go to Democracy.io and paste your letter</div><a href="'+democracyUrl+'" target="_blank" style="display:block;padding:0.65rem;background:#0d2340;color:white;border-radius:4px;text-decoration:none;font-size:0.82rem;font-weight:700;text-transform:uppercase;text-align:center">Open Democracy.io</a></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem"><div style="border:1px solid #ede7dc;border-radius:6px;padding:0.9rem;text-align:center;background:#f7f3ee"><div style="font-size:0.82rem;font-weight:700;color:#0d2340;margin-bottom:0.3rem">Resistbot</div><a href="sms:50409" style="display:block;padding:0.5rem;background:#1a3a5c;color:white;border-radius:4px;text-decoration:none;font-size:0.75rem;font-weight:700;text-transform:uppercase">Text 50409</a></div><div style="border:1px solid #ede7dc;border-radius:6px;padding:0.9rem;text-align:center;background:#f7f3ee"><div style="font-size:0.82rem;font-weight:700;color:#0d2340;margin-bottom:0.3rem">Find My Reps</div><a href="'+congressUrl+'" target="_blank" style="display:block;padding:0.5rem;background:#0d2340;color:white;border-radius:4px;text-decoration:none;font-size:0.75rem;font-weight:700;text-transform:uppercase">Find My Reps</a></div></div></div>';
   }
 
-  // ── RENDER TABLE ────────────────────────────────────────────
-  function renderTable() {
-    var tbody = document.getElementById('sigTable');
-    if (!signatures.length) {
-      tbody.innerHTML = '<tr><td colspan="7" class="no-sigs">No signatures yet. Be the first to sign.</td></tr>';
-      return;
-    }
-    var html = '';
-    for (var i = signatures.length - 1; i >= 0; i--) {
-      var s = signatures[i];
-      html += '<tr>' +
-        '<td><strong>' + s.displayName + '</strong></td>' +
-        '<td>' + s.city + '</td>' +
-        '<td>' + s.state + '</td>' +
-        '<td style="font-size:0.78rem">' + (s.houseRep || 'Looking up...') + '</td>' +
-        '<td style="font-size:0.78rem">' + (s.senators || 'Looking up...') + '</td>' +
-        '<td style="font-size:0.75rem">' + s.issues.join(', ') + '</td>' +
-        '<td style="font-size:0.75rem;white-space:nowrap">' + s.date + '</td>' +
-        '</tr>';
-    }
-    tbody.innerHTML = html;
+  function renderTable(){
+    var tbody=document.getElementById('sigTable');
+    if(!signatures.length){tbody.innerHTML='<tr><td colspan="7" class="no-sigs">No signatures yet. Be the first to sign.</td></tr>';return;}
+    var html='';
+    for(var i=signatures.length-1;i>=0;i--){var s=signatures[i];html+='<tr><td><strong>'+s.displayName+'</strong></td><td>'+s.city+'</td><td>'+s.state+'</td><td style="font-size:0.78rem">'+(s.houseRep||'Looking up...')+'</td><td style="font-size:0.78rem">'+(s.senators||'Looking up...')+'</td><td style="font-size:0.75rem">'+s.issues.join(', ')+'</td><td style="font-size:0.75rem;white-space:nowrap">'+s.date+'</td></tr>';}
+    tbody.innerHTML=html;
   }
 
-  // ── UPDATE COUNTS ────────────────────────────────────────────
-  function updateCounts() {
-    var n = signatures.length;
-    document.getElementById('hero-count').textContent = n;
-    document.getElementById('sigCount').textContent   = n;
-    document.getElementById('dTotal').textContent     = n;
-
-    var stateSet = {};
-    var distSet  = {};
-    for (var i = 0; i < signatures.length; i++) {
-      stateSet[signatures[i].state] = 1;
-      var rep = signatures[i].houseRep || signatures[i].zip;
-      distSet[rep] = 1;
-    }
-    document.getElementById('dStates').textContent    = Object.keys(stateSet).length;
-    document.getElementById('dDistricts').textContent = Object.keys(distSet).length;
+  function updateCounts(){
+    var n=signatures.length;
+    document.getElementById('hero-count').textContent=n;document.getElementById('sigCount').textContent=n;document.getElementById('dTotal').textContent=n;
+    var stateSet={},distSet={};
+    for(var i=0;i<signatures.length;i++){stateSet[signatures[i].state]=1;distSet[signatures[i].houseRep||signatures[i].zip]=1;}
+    document.getElementById('dStates').textContent=Object.keys(stateSet).length;document.getElementById('dDistricts').textContent=Object.keys(distSet).length;
   }
 
-  // ── DOWNLOAD CSV (Admin only - triggered by Ctrl+Shift+D) ───
-  function downloadCSV() {
-    if (!signatures.length) { alert('No signatures have been collected yet.'); return; }
-    var headers = ['Date','Name','City','State','ZIP','House Representative','Senators','Issues Supported','Personal Statement'];
-    var rows = [headers.join(',')];
-    for (var i = 0; i < signatures.length; i++) {
-      var s = signatures[i];
-      rows.push([
-        s.date, s.fullName, s.city, s.state, s.zip,
-        s.houseRep || '', s.senators || '',
-        '"' + s.issues.join('; ') + '"',
-        '"' + (s.statement || '').replace(/"/g, '""') + '"'
-      ].join(','));
-    }
-    var csv  = rows.join('\n');
-    var blob = new Blob([csv], { type: 'text/csv' });
-    var url  = URL.createObjectURL(blob);
-    var a    = document.createElement('a');
-    a.href = url;
-    a.download = 'FixMedicareNow_Digest_' + new Date().toISOString().slice(0,10) + '.csv';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  function downloadCSV(){
+    if(!signatures.length){alert('No signatures have been collected yet.');return;}
+    var headers=['Date','Name','City','State','ZIP','House Representative','Senators','Issues Supported','Personal Statement'],rows=[headers.join(',')];
+    for(var i=0;i<signatures.length;i++){var s=signatures[i];rows.push([s.date,s.fullName,s.city,s.state,s.zip,s.houseRep||'',s.senators||'','"'+s.issues.join('; ')+'"','"'+(s.statement||'').replace(/"/g,'""')+'"'].join(','));}
+    var csv=rows.join('\n'),blob=new Blob([csv],{type:'text/csv'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download='FixMedicareNow_Digest_'+new Date().toISOString().slice(0,10)+'.csv';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
   }
 
-  // ── EMAIL DIGEST ─────────────────────────────────────────────
-  function emailDigest() {
-    if (!signatures.length) { alert('No signatures have been collected yet.'); return; }
-    var byState    = {};
-    var issueTally = {};
-    for (var i = 0; i < signatures.length; i++) {
-      var s = signatures[i];
-      byState[s.state] = (byState[s.state] || 0) + 1;
-      for (var j = 0; j < s.issues.length; j++) {
-        issueTally[s.issues[j]] = (issueTally[s.issues[j]] || 0) + 1;
-      }
-    }
-    var stateLines = '';
-    var stateArr = Object.keys(byState).sort(function(a,b){ return byState[b]-byState[a]; });
-    for (var k = 0; k < stateArr.length; k++) {
-      stateLines += '  ' + stateArr[k] + ': ' + byState[stateArr[k]] + ' constituent' + (byState[stateArr[k]] > 1 ? 's' : '') + '\n';
-    }
-    var issueLines = '';
-    var issueArr = Object.keys(issueTally).sort(function(a,b){ return issueTally[b]-issueTally[a]; });
-    for (var m = 0; m < issueArr.length; m++) {
-      issueLines += '  ' + issueArr[m] + ': ' + issueTally[issueArr[m]] + ' signature' + (issueTally[issueArr[m]] > 1 ? 's' : '') + '\n';
-    }
-    var week       = new Date().toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' });
-    var stateCount = Object.keys(byState).length;
-    var subject    = encodeURIComponent('Weekly Petition Digest: Fix Medicare Now (Week of ' + week + ')');
-    var body       = encodeURIComponent(
-      'WEEKLY PETITION DIGEST: Fix Medicare Now\n' +
-      'Week Ending: ' + week + '\n' +
-      'Total Signatures: ' + signatures.length + ' | States Represented: ' + stateCount + '\n\n' +
-      'Dear Member of Congress,\n\n' +
-      'This weekly digest is submitted on behalf of the Fix Medicare Now petition, a nonpartisan citizen advocacy initiative calling for urgent reform to Medicare and Social Security.\n\n' +
-      'SIGNATURES BY STATE:\n' + stateLines + '\n' +
-      'TOP REFORM PRIORITIES:\n' + issueLines + '\n' +
-      'THE 12 REFORMS DEMANDED:\n' +
-      '1.  Eliminate or reform Late Enrollment Penalties\n' +
-      '2.  Expand Home Care access and quality\n' +
-      '3.  Add Hearing Aid coverage to Medicare\n' +
-      '4.  Improve Medical Supplies coverage\n' +
-      '5.  Add Dental coverage to Medicare\n' +
-      '6.  Add Vision coverage to Medicare\n' +
-      '7.  Mandate upfront Price Transparency\n' +
-      '8.  Cover Laser-Assisted Cataract Surgery\n' +
-      '9.  Reform PDP Plan availability and reduce drug costs\n' +
-      '10. Increase Physician Reimbursement Rates\n' +
-      '11. Cover Non-Emergency Medical Transportation\n' +
-      '12. Raise Social Security benefits to reflect true cost of living\n\n' +
-      'Respectfully submitted,\nFix Medicare Now Petition Committee\nwww.fixmedicare.org'
-    );
-    window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+  function emailDigest(){
+    if(!signatures.length){alert('No signatures have been collected yet.');return;}
+    var byState={},issueTally={};
+    for(var i=0;i<signatures.length;i++){var s=signatures[i];byState[s.state]=(byState[s.state]||0)+1;for(var j=0;j<s.issues.length;j++){issueTally[s.issues[j]]=(issueTally[s.issues[j]]||0)+1;}}
+    var stateLines='',stateArr=Object.keys(byState).sort(function(a,b){return byState[b]-byState[a];});
+    for(var k=0;k<stateArr.length;k++){stateLines+='  '+stateArr[k]+': '+byState[stateArr[k]]+' constituent'+(byState[stateArr[k]]>1?'s':'')+'\n';}
+    var issueLines='',issueArr=Object.keys(issueTally).sort(function(a,b){return issueTally[b]-issueTally[a];});
+    for(var m=0;m<issueArr.length;m++){issueLines+='  '+issueArr[m]+': '+issueTally[issueArr[m]]+' signature'+(issueTally[issueArr[m]]>1?'s':'')+'\n';}
+    var week=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}),stateCount=Object.keys(byState).length;
+    var subject=encodeURIComponent('Weekly Petition Digest: Fix Medicare Now (Week of '+week+')');
+    var body=encodeURIComponent('WEEKLY PETITION DIGEST: Fix Medicare Now\nWeek Ending: '+week+'\nTotal Signatures: '+signatures.length+' | States Represented: '+stateCount+'\n\nDear Member of Congress,\n\nThis weekly digest is submitted on behalf of the Fix Medicare Now petition.\n\nSIGNATURES BY STATE:\n'+stateLines+'\nTOP REFORM PRIORITIES:\n'+issueLines+'\nRespectfully submitted,\nFix Medicare Now\nwww.fixmedicare.org');
+    window.location.href='mailto:?subject='+subject+'&body='+body;
   }
 
-  // ── COPY LETTER TO CLIPBOARD ────────────────────────────────
-  function copyLetter() {
-    var text = window._petitionLetter || '';
-    if (!text) { return; }
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(function() {
-          showCopyConfirm();
-        }).catch(function() {
-          fallbackCopy(text);
-        });
-      } else {
-        fallbackCopy(text);
-      }
-    } catch(e) {
-      fallbackCopy(text);
-    }
+  function copyLetter(){
+    var text=window._petitionLetter||'';if(!text)return;
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){showCopyConfirm();}).catch(function(){fallbackCopy(text);});}else{fallbackCopy(text);}
   }
+  function fallbackCopy(text){var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');showCopyConfirm();}catch(e){}document.body.removeChild(ta);}
+  function showCopyConfirm(){var btn=document.getElementById('copyBtn'),confirm=document.getElementById('copyConfirm');if(btn){btn.style.background='#2e7d32';btn.style.color='white';btn.textContent='Copied!';}if(confirm){confirm.style.display='block';}}
 
-  function fallbackCopy(text) {
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.top = '0';
-    ta.style.left = '0';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.focus();
-    ta.select();
-    try {
-      document.execCommand('copy');
-      showCopyConfirm();
-    } catch(e) {}
-    document.body.removeChild(ta);
-  }
+  function goToSection(id){var el=document.getElementById(id);if(!el)return;try{el.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){var top=0,obj=el;while(obj){top+=obj.offsetTop||0;obj=obj.offsetParent;}window.scrollTo(0,top-20);}}
 
-  function showCopyConfirm() {
-    var btn     = document.getElementById('copyBtn');
-    var confirm = document.getElementById('copyConfirm');
-    if (btn)     { btn.style.background = '#2e7d32'; btn.style.color = 'white'; btn.textContent = 'Copied!'; }
-    if (confirm) { confirm.style.display = 'block'; }
-  }
-
-  // ── SMOOTH SCROLL (works inside Wix iframe) ─────────────────
-  function goToSection(id) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    // Try smooth scroll first
-    try {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } catch(e) {
-      // Fallback for older browsers or restricted iframes
-      var top = 0;
-      var obj = el;
-      while (obj) {
-        top += obj.offsetTop || 0;
-        obj  = obj.offsetParent;
-      }
-      window.scrollTo(0, top - 20);
-    }
-  }
-
-  // ── ADMIN KEYBOARD SHORTCUT (Ctrl + Shift + D) ─────────────
-  // Only you know this shortcut - press it on the live site to download the CSV
-  document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && e.shiftKey && e.key === 'D') {
-      e.preventDefault();
-      downloadCSV();
-    }
-  });
-
-  // Init - load any locally stored signatures
+  document.addEventListener('keydown',function(e){if(e.ctrlKey&&e.shiftKey&&e.key==='D'){e.preventDefault();downloadCSV();}});
   loadLocalSignatures();
 </script>
 </body>
