@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,14 +27,22 @@ body { font-family:Georgia,serif; background:#F5F0E8; color:#1a1a1a; min-height:
 .step-num { width:32px; height:32px; background:#0F1E45; color:#B8860B; font-size:14px; font-weight:bold; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .step-title { font-size:16px; font-weight:bold; color:#0F1E45; }
 .step-sub { font-size:12px; color:#777; margin-top:2px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
+.form-row.three { grid-template-columns:2fr 1fr 1fr; }
+.form-row.full { grid-template-columns:1fr; }
+.field { display:flex; flex-direction:column; gap:4px; }
+.field label { font-size:11px; font-weight:bold; color:#555; text-transform:uppercase; letter-spacing:0.5px; }
+.field input, .field select { font-family:Georgia,serif; font-size:14px; padding:9px 12px; border:1px solid #ddd; border-radius:2px; color:#1a1a1a; background:#fff; }
+.field input:focus, .field select:focus { outline:none; border-color:#0F1E45; }
+.req { color:#b03030; }
 .message-box { background:#F5F0E8; border:1px solid #e0d8cc; border-left:3px solid #0F1E45; padding:16px; font-size:12px; line-height:1.8; color:#222; font-family:Georgia,serif; max-height:300px; overflow-y:auto; white-space:pre-wrap; margin-bottom:16px; }
-.btn { display:inline-block; font-family:Georgia,serif; font-size:13px; font-weight:bold; letter-spacing:1.5px; text-transform:uppercase; padding:13px 28px; border:none; cursor:pointer; transition:opacity 0.15s; text-decoration:none; text-align:center; }
+.btn { display:inline-block; font-family:Georgia,serif; font-size:13px; font-weight:bold; letter-spacing:1.5px; text-transform:uppercase; padding:13px 28px; border:none; cursor:pointer; transition:opacity 0.15s; text-decoration:none; text-align:center; border-radius:2px; }
 .btn:hover { opacity:0.85; }
 .btn-navy { background:#0F1E45; color:#fff; }
 .btn-gold { background:#B8860B; color:#0F1E45; }
 .btn-block { display:block; width:100%; }
-.copied { display:none; font-size:12px; color:#3b6d11; background:#eaf3de; padding:4px 10px; border-radius:99px; margin-left:10px; vertical-align:middle; }
-.copied.show { display:inline-block; }
+.copied { display:none; font-size:12px; color:#3b6d11; background:#eaf3de; padding:4px 10px; border-radius:99px; margin-top:8px; text-align:center; }
+.copied.show { display:block; }
 .reforms-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
 .reform-row { display:flex; align-items:center; gap:8px; padding:8px 10px; background:#F5F0E8; border-radius:2px; }
 .reform-num { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; min-width:22px; background:#0F1E45; color:#B8860B; font-size:9px; font-weight:bold; border-radius:2px; }
@@ -47,12 +54,13 @@ body { font-family:Georgia,serif; background:#F5F0E8; color:#1a1a1a; min-height:
 .mission-quote { background:#0F1E45; padding:20px 24px; margin-bottom:20px; border-left:4px solid #B8860B; }
 .mission-quote p { font-size:15px; font-style:italic; color:#fff; line-height:1.7; }
 .mission-quote cite { display:block; font-size:10px; color:#B8860B; font-style:normal; letter-spacing:1px; text-transform:uppercase; margin-top:8px; }
+.info-note { background:#eaf3de; border:1px solid #4caf50; border-radius:2px; padding:10px 14px; font-size:12px; color:#2e7d32; margin-bottom:16px; line-height:1.6; }
 .site-footer { background:#0a1530; padding:22px 24px; text-align:center; }
 .site-footer p { font-size:11px; color:rgba(255,255,255,0.35); line-height:1.8; }
 .site-footer a { color:#B8860B; text-decoration:none; }
 .disclosure { font-size:9px; color:rgba(255,255,255,0.18); line-height:1.6; border-top:1px solid rgba(255,255,255,0.07); padding-top:12px; margin-top:12px; }
 @media(max-width:500px) {
-  .reforms-grid, .how-steps { grid-template-columns:1fr; }
+  .reforms-grid, .how-steps, .form-row, .form-row.three { grid-template-columns:1fr; }
   .stats-bar { flex-wrap:wrap; gap:12px; }
   .stat { border-right:none; }
 }
@@ -74,7 +82,7 @@ body { font-family:Georgia,serif; background:#F5F0E8; color:#1a1a1a; min-height:
 
 <div class="hero-strip">
   <h1>Contact Every Member of Congress Directly</h1>
-  <p>Copy your personalized message below, then click the button to send it to your representatives. It takes less than two minutes.</p>
+  <p>Enter your information below. We will personalize your message and connect you directly to your representatives via Democracy.io.</p>
 </div>
 
 <div class="main">
@@ -84,16 +92,18 @@ body { font-family:Georgia,serif; background:#F5F0E8; color:#1a1a1a; min-height:
     <cite>Fix Medicare Now -- Mission Statement</cite>
   </div>
 
+  <!-- HOW IT WORKS -->
   <div class="card">
     <div class="card-title">How This Works -- 4 Simple Steps</div>
     <div class="how-steps">
-      <div class="how-step"><div class="num">1</div><div class="desc"><strong>Copy your message</strong> below. It covers all 12 Medicare reforms and is ready to send.</div></div>
-      <div class="how-step"><div class="num">2</div><div class="desc"><strong>Click "Send to Congress"</strong> to open Democracy.io, a free trusted tool used by millions.</div></div>
-      <div class="how-step"><div class="num">3</div><div class="desc"><strong>Enter your address.</strong> Democracy.io automatically finds your exact senators and representative.</div></div>
-      <div class="how-step"><div class="num">4</div><div class="desc"><strong>Paste and send.</strong> Your message goes directly to every one of your representatives in Washington.</div></div>
+      <div class="how-step"><div class="num">1</div><div class="desc"><strong>Enter your information</strong> below. Your name, address, and phone number are needed by Democracy.io to contact your representatives.</div></div>
+      <div class="how-step"><div class="num">2</div><div class="desc"><strong>Your message is personalized</strong> with your name and address covering all 12 Medicare reforms.</div></div>
+      <div class="how-step"><div class="num">3</div><div class="desc"><strong>Copy your message</strong> with one click so it is ready to paste.</div></div>
+      <div class="how-step"><div class="num">4</div><div class="desc"><strong>Click "Send to Congress"</strong> to open Democracy.io. Enter your info, paste your message, and send to all 3 representatives.</div></div>
     </div>
   </div>
 
+  <!-- ALL 12 REFORMS -->
   <div class="card">
     <div class="card-title">Your Message Covers All 12 Reforms</div>
     <div class="reforms-grid">
@@ -112,65 +122,79 @@ body { font-family:Georgia,serif; background:#F5F0E8; color:#1a1a1a; min-height:
     </div>
   </div>
 
+  <!-- STEP 1: YOUR INFO -->
   <div class="card">
     <div class="step-header">
       <div class="step-num">1</div>
-      <div><div class="step-title">Copy Your Message</div><div class="step-sub">Pre-written, nonpartisan, covers all 12 reforms</div></div>
+      <div><div class="step-title">Enter Your Information</div><div class="step-sub">Required by Democracy.io to identify and contact your representatives</div></div>
     </div>
-    <div class="message-box" id="msg">Dear Senator / Representative,
-
-My name is [YOUR NAME] and I am a constituent writing to demand your immediate support for meaningful Medicare and Social Security reform.
-
-Medicare and Social Security are not government handouts. They are earned benefits that Americans paid for over a lifetime of work. Congress has a moral and legal obligation to ensure they function as promised. I am asking you to take action on the following 12 critical failures:
-
-1. LATE ENROLLMENT PENALTIES (Part B and D): Beneficiaries face permanent surcharges of 10% per year for Part B and 1% per month for Part D, often through no fault of their own. This punitive policy must end.
-
-2. HOME CARE ACCESS: Medicare's home health benefit is severely restricted, forcing seniors who could live independently into costly institutional care. Expanded home care coverage is urgently needed.
-
-3. HEARING AID COVERAGE: Medicare provides zero coverage for hearing aids despite hearing loss being one of the most prevalent senior conditions. Devices cost $3,000 to $7,000. This gap must be closed immediately.
-
-4. MEDICAL SUPPLIES: Coverage for durable medical equipment is inconsistent and bureaucratic, leaving beneficiaries navigating complex prior authorization for basic items.
-
-5. DENTAL COVERAGE: Original Medicare excludes all routine dental care. Poor oral health is directly linked to heart disease, diabetes, and malnutrition. This is a dangerous and inexcusable gap.
-
-6. VISION COVERAGE: Routine eye exams and eyeglasses are not covered. Vision loss is the leading cause of falls. Falls are the leading cause of injury-related death in seniors. This gap costs lives.
-
-7. PRICE TRANSPARENCY: Beneficiaries receive procedures with no prior disclosure of cost-sharing obligations, leading to medical debt and financial shock. Seniors deserve to know what care will cost.
-
-8. LASER CATARACT SURGERY: Medicare covers traditional cataract surgery but excludes laser-assisted techniques, creating a two-tier system based on wealth. This inequity must end.
-
-9. DRUG COSTS AND PART D: Unpredictable Part D premium increases and inconsistent formularies place essential medications out of reach for seniors who need them to survive.
-
-10. PHYSICIAN REIMBURSEMENT: Low reimbursement rates are driving doctors to stop accepting Medicare patients, shrinking access to care for seniors across the country.
-
-11. NON-EMERGENCY TRANSPORTATION: Coverage for rides to medical appointments is limited to emergencies, leaving seniors without access to routine and specialist care they urgently need.
-
-12. SOCIAL SECURITY BENEFIT ADEQUACY: Average benefits fall far short of covering housing, utilities, food, and medications as inflation outpaces Cost-of-Living Adjustments. Seniors cannot survive on what they receive.
-
-These failures affect 65 million plus Americans, including your own constituents. I respectfully demand that you champion reforms to address every one of these issues.
-
-Please visit www.fixmedicare.org to learn more and add your support to our national nonpartisan petition.
-
-Respectfully,
-[YOUR NAME]
-Constituent | www.fixmedicare.org</div>
-    <button class="btn btn-navy" onclick="copyMsg()" id="copy-btn">Copy Message to Clipboard</button>
-    <span class="copied" id="copied">Copied! Now click Step 2 below.</span>
+    <div class="info-note">Your information is used only to personalize your message and connect you with your representatives. It is never sold or shared.</div>
+    <div class="form-row">
+      <div class="field"><label>First Name <span class="req">*</span></label><input type="text" id="cc-fname" placeholder="Jane"></div>
+      <div class="field"><label>Last Name <span class="req">*</span></label><input type="text" id="cc-lname" placeholder="Smith"></div>
+    </div>
+    <div class="form-row full">
+      <div class="field"><label>Street Address <span class="req">*</span></label><input type="text" id="cc-street" placeholder="123 Main Street"></div>
+    </div>
+    <div class="form-row three">
+      <div class="field"><label>City <span class="req">*</span></label><input type="text" id="cc-city" placeholder="Springfield"></div>
+      <div class="field"><label>State <span class="req">*</span></label>
+        <select id="cc-state">
+          <option value="">State</option>
+          <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option>
+          <option>CO</option><option>CT</option><option>DE</option><option>FL</option><option>GA</option>
+          <option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option>
+          <option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+          <option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option>
+          <option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option>
+          <option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option>
+          <option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+          <option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option>
+          <option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option>
+        </select>
+      </div>
+      <div class="field"><label>ZIP Code <span class="req">*</span></label><input type="text" id="cc-zip" placeholder="12345" maxlength="5"></div>
+    </div>
+    <div class="form-row">
+      <div class="field"><label>Phone Number <span class="req">*</span></label><input type="tel" id="cc-phone" placeholder="(555) 000-0000"></div>
+      <div class="field"><label>Email Address</label><input type="email" id="cc-email" placeholder="jane@example.com"></div>
+    </div>
+    <button class="btn btn-navy btn-block" onclick="generateMessage()" style="margin-top:8px;">Generate My Personalized Message</button>
+    <div id="form-error" style="display:none;background:#fce8e8;border:1px solid #f44336;padding:10px;border-radius:2px;font-size:12px;color:#c62828;margin-top:8px;"></div>
   </div>
 
-  <div class="card">
+  <!-- STEP 2: MESSAGE -->
+  <div class="card" id="message-card" style="display:none;">
     <div class="step-header">
       <div class="step-num">2</div>
-      <div><div class="step-title">Send to Your Representatives</div><div class="step-sub">Democracy.io finds your exact senators and House representative by address</div></div>
+      <div><div class="step-title">Copy Your Personalized Message</div><div class="step-sub">Pre-written and personalized with your name and address</div></div>
     </div>
-    <p style="font-size:13px;color:#555;line-height:1.7;margin-bottom:18px;">Click the button below to open Democracy.io. Enter your address, paste your copied message, and send. Your message will be delivered directly to your senator and House representative in Washington, D.C.</p>
-    <a class="btn btn-gold btn-block" href="https://democracy.io" target="_blank">Send to Congress via Democracy.io</a>
-    <p style="font-size:11px;color:#aaa;text-align:center;margin-top:10px;">Democracy.io is a free, nonpartisan congressional contact tool. It is not affiliated with Fix Medicare Now.</p>
+    <div class="message-box" id="msg-box"></div>
+    <button class="btn btn-navy btn-block" onclick="copyMsg()" id="copy-btn">Copy Message to Clipboard</button>
+    <div class="copied" id="copied-badge">Copied! Now click Step 3 below to send to Congress.</div>
   </div>
 
+  <!-- STEP 3: SEND -->
+  <div class="card" id="send-card" style="display:none;">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div><div class="step-title">Send to Your Representatives</div><div class="step-sub">Democracy.io delivers to your House rep and both senators</div></div>
+    </div>
+    <p style="font-size:13px;color:#555;line-height:1.7;margin-bottom:8px;">Click the button below to open Democracy.io. You will need to:</p>
+    <ol style="font-size:13px;color:#555;line-height:1.9;margin-bottom:16px;padding-left:20px;">
+      <li>Enter your address on Democracy.io to find your representatives</li>
+      <li>Enter your phone number when prompted</li>
+      <li>Paste your copied message into the message field</li>
+      <li>Click Send -- Democracy.io delivers to all 3 representatives automatically</li>
+    </ol>
+    <a class="btn btn-gold btn-block" href="https://democracy.io" target="_blank" id="democracy-btn">Send to Congress via Democracy.io</a>
+    <p style="font-size:11px;color:#aaa;text-align:center;margin-top:10px;">Democracy.io is a free, nonpartisan congressional contact tool. Not affiliated with Fix Medicare Now.</p>
+  </div>
+
+  <!-- ALSO SIGN -->
   <div class="card-dark">
-    <p style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.8;margin-bottom:16px;">Have you signed the Fix Medicare Now national petition yet? Every signature is delivered directly to all 535 members of Congress, organized by your district.</p>
-    <a class="btn btn-gold btn-block" href="https://www.fixmedicare.org" target="_blank">Sign the Petition at FixMedicare.org</a>
+    <p style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.8;margin-bottom:16px;">Have you signed the Fix Medicare Now national petition yet? Every signature is delivered directly to all 535 members of Congress, organized by district.</p>
+    <a class="btn btn-gold btn-block" href="https://elifeuer.github.io/fixmedicare-petition/" target="_blank">Sign the Petition at FixMedicare.org</a>
   </div>
 
 </div>
@@ -183,28 +207,86 @@ Constituent | www.fixmedicare.org</div>
 </div>
 
 <script>
+function generateMessage() {
+  var fname  = document.getElementById('cc-fname').value.trim();
+  var lname  = document.getElementById('cc-lname').value.trim();
+  var street = document.getElementById('cc-street').value.trim();
+  var city   = document.getElementById('cc-city').value.trim();
+  var state  = document.getElementById('cc-state').value;
+  var zip    = document.getElementById('cc-zip').value.trim();
+  var phone  = document.getElementById('cc-phone').value.trim();
+  var errBox = document.getElementById('form-error');
+
+  errBox.style.display = 'none';
+
+  if (!fname || !lname || !street || !city || !state || !zip || !phone) {
+    errBox.textContent = 'Please fill in all required fields including your phone number.';
+    errBox.style.display = 'block';
+    return;
+  }
+
+  var fullName    = fname + ' ' + lname;
+  var fullAddress = street + ', ' + city + ', ' + state + ' ' + zip;
+
+  var message =
+'Dear Senator / Representative,\n\n' +
+'My name is ' + fullName + ' and I am a constituent residing at ' + fullAddress + '.\n\n' +
+'I am writing to demand your immediate support for meaningful Medicare and Social Security reform. ' +
+'Medicare and Social Security are not government handouts. They are earned benefits that Americans ' +
+'paid for over a lifetime of work. Congress has a moral and legal obligation to ensure they function as promised.\n\n' +
+'I am asking you to take action on the following 12 critical failures:\n\n' +
+'1. LATE ENROLLMENT PENALTIES (Part B and D): Permanent surcharges of 10% per year for Part B and 1% per month for Part D, often imposed through no fault of the beneficiary. This punitive policy must end.\n\n' +
+'2. HOME CARE ACCESS: Medicare\'s home health hours are severely restricted, forcing seniors who could live independently into costly institutional care.\n\n' +
+'3. HEARING AID COVERAGE: Medicare provides zero coverage for hearing aids despite hearing loss being one of the most prevalent senior conditions. Devices cost $3,000 to $7,000. This gap must be closed.\n\n' +
+'4. MEDICAL SUPPLIES: Inconsistent and bureaucratic durable medical equipment coverage leaves beneficiaries navigating complex prior authorization for basic items.\n\n' +
+'5. DENTAL COVERAGE: Original Medicare excludes all routine dental care. Poor oral health is directly linked to heart disease, diabetes, and malnutrition.\n\n' +
+'6. VISION COVERAGE: Routine eye exams and eyeglasses are not covered. Vision loss is the leading cause of falls. Falls are the leading cause of injury-related death in seniors.\n\n' +
+'7. PRICE TRANSPARENCY: Beneficiaries receive procedures with no prior disclosure of cost-sharing obligations, leading to medical debt and financial shock.\n\n' +
+'8. LASER CATARACT SURGERY: Traditional surgery covered, laser-assisted excluded -- creating a two-tier system based on wealth.\n\n' +
+'9. DRUG COSTS AND PART D: Unpredictable Part D premiums and inconsistent formularies put essential medications out of reach for seniors who need them to survive.\n\n' +
+'10. PHYSICIAN REIMBURSEMENT: Low reimbursement rates are driving doctors to stop accepting Medicare patients, shrinking access to care.\n\n' +
+'11. NON-EMERGENCY TRANSPORTATION: Coverage limited to emergencies, leaving seniors without rides to routine and specialist appointments they urgently need.\n\n' +
+'12. SOCIAL SECURITY BENEFIT ADEQUACY: Average benefits fall far short of covering housing, utilities, food, and medications as inflation outpaces Cost-of-Living Adjustments.\n\n' +
+'These failures affect 65 million plus Americans, including your own constituents. I respectfully demand that you champion reforms to address every one of these issues.\n\n' +
+'Please visit www.fixmedicare.org to learn more.\n\n' +
+'Respectfully,\n' +
+fullName + '\n' +
+fullAddress + '\n' +
+'Phone: ' + phone;
+
+  document.getElementById('msg-box').textContent = message;
+  window._contactMessage = message;
+
+  document.getElementById('message-card').style.display = 'block';
+  document.getElementById('send-card').style.display = 'block';
+  document.getElementById('message-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 function copyMsg() {
-  const text = document.getElementById('msg').innerText;
-  const btn = document.getElementById('copy-btn');
-  const badge = document.getElementById('copied');
-  navigator.clipboard.writeText(text).then(() => {
-    badge.classList.add('show');
+  var text = window._contactMessage || '';
+  var btn  = document.getElementById('copy-btn');
+  var badge = document.getElementById('copied-badge');
+
+  navigator.clipboard.writeText(text).then(function() {
     btn.textContent = 'Copied!';
-    btn.style.background = '#3b6d11';
-    setTimeout(() => {
-      badge.classList.remove('show');
+    btn.style.background = '#2e7d32';
+    badge.classList.add('show');
+    setTimeout(function() {
       btn.textContent = 'Copy Message to Clipboard';
       btn.style.background = '#0F1E45';
+      badge.classList.remove('show');
     }, 5000);
-  }).catch(() => {
-    const range = document.createRange();
-    range.selectNode(document.getElementById('msg'));
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
+  }).catch(function() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus(); ta.select();
     document.execCommand('copy');
-    window.getSelection().removeAllRanges();
+    document.body.removeChild(ta);
     badge.classList.add('show');
-    setTimeout(() => badge.classList.remove('show'), 5000);
+    setTimeout(function() { badge.classList.remove('show'); }, 5000);
   });
 }
 </script>
