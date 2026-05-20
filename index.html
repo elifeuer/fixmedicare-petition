@@ -361,10 +361,10 @@
   var signatures = [];
 
   function submitForm() {
-    var fname=document.getElementById('fname').value.trim(),lname=document.getElementById('lname').value.trim(),email=document.getElementById('email').value.trim(),address=document.getElementById('address').value.trim(),city=document.getElementById('city').value.trim(),zip=document.getElementById('zip').value.trim(),state=document.getElementById('state').value,statement=document.getElementById('statement').value.trim(),errBox=document.getElementById('formError');
+    var fname=document.getElementById('fname').value.trim(),lname=document.getElementById('lname').value.trim(),email=document.getElementById('email').value.trim(),address=document.getElementById('address').value.trim(),city=document.getElementById('city').value.trim(),zip=document.getElementById('zip').value.trim(),state=document.getElementById('state').value,phone=document.getElementById('phone').value.trim(),statement=document.getElementById('statement').value.trim(),errBox=document.getElementById('formError');
     var issues=['Late Enrollment Penalties','Home Care Access','Hearing Aid Coverage','Medical Supplies','Dental Coverage','Vision Coverage','Price Transparency','Laser Cataract Surgery','Drug Plan Costs','Physician Pay','Medical Transportation','Social Security Benefits'];
     errBox.style.display='none';
-    if(!fname||!lname||!email||!address||!city||!zip||!state){errBox.textContent='Please fill in all required fields.';errBox.style.display='block';return;}
+    if(!fname||!lname||!email||!address||!city||!zip||!state||!phone){errBox.textContent='Please fill in all required fields.';errBox.style.display='block';return;}
     var btn=document.getElementById('submitBtn');btn.disabled=true;btn.innerHTML='<span class="spinner"></span>Looking up your representatives...';
     var fullAddress=address+', '+city+', '+state+' '+zip;
     fetchReps(fullAddress,function(reps){
@@ -390,7 +390,7 @@
     emailjs.send(EJS_SERVICE_ID,EJS_TEMPLATE_ID,{signer_name:sig.fullName,signer_email:sig.email,signer_address:sig.address,signer_city:sig.city,signer_state:sig.state,signer_zip:sig.zip,house_rep:houseRep||'Not found',senators:senators||'Not found',statement:sig.statement||'None provided',date:new Date().toLocaleString()}).then(function(){console.log('Email sent');}).catch(function(err){console.warn('Email failed:',err);});
   }
 
-  function saveSignature(sig){var xhr=new XMLHttpRequest();xhr.open('POST',SHEET_URL,true);xhr.setRequestHeader('Content-Type','text/plain');xhr.send(JSON.stringify({fname:sig.fname,lname:sig.lname,email:sig.email,city:sig.city,state:sig.state,zip:sig.zip,houseRep:sig.houseRep||'Looking up...',senators:sig.senators||'Looking up...',statement:sig.statement||''}));}
+  function saveSignature(sig){var xhr=new XMLHttpRequest();xhr.open('POST',SHEET_URL,true);xhr.setRequestHeader('Content-Type','text/plain');xhr.send(JSON.stringify({fname:sig.fname,lname:sig.lname,email:sig.email,address:sig.address||'',city:sig.city,state:sig.state,zip:sig.zip,houseRep:sig.houseRep||'Looking up...',senators:sig.senators||'Looking up...',phone:sig.phone||'',statement:sig.statement||''}));}
 
   function loadLocalSignatures(){try{var stored=localStorage.getItem('fixMedicareSignatures');if(stored)signatures=JSON.parse(stored);}catch(e){}renderTable();updateCounts();}
   function saveLocal(){try{localStorage.setItem('fixMedicareSignatures',JSON.stringify(signatures));}catch(e){}}
